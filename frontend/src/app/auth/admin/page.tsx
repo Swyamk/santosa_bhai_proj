@@ -105,7 +105,7 @@ export default function AdminLogin() {
                 <input
                   {...register('email')}
                   type="email"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-gray-900 placeholder-gray-500 bg-white"
                   placeholder="Enter admin email"
                 />
               </div>
@@ -126,7 +126,7 @@ export default function AdminLogin() {
                 <input
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-gray-900 placeholder-gray-500 bg-white"
                   placeholder="Enter secure password"
                 />
                 <button
@@ -158,7 +158,7 @@ export default function AdminLogin() {
                 <input
                   {...register('accessCode')}
                   type="text"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-gray-900 placeholder-gray-500 bg-white"
                   placeholder="Enter access code"
                 />
               </div>

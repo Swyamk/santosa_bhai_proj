@@ -76,6 +76,7 @@ export default function IDInput({ register, error, onQRScan, isLoading }: IDInpu
           className={`w-full px-4 py-3 border-2 rounded-lg text-lg font-mono
                      focus:ring-2 focus:ring-blue-500 focus:border-blue-500
                      disabled:bg-gray-100 disabled:cursor-not-allowed
+                     text-gray-900 placeholder-gray-500 bg-white
                      ${error ? 'border-red-300' : 'border-gray-300'}`}
         />
         
