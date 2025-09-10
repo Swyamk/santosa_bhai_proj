@@ -53,10 +53,12 @@ app.get('/health', (req, res) => {
 // Import routes
 const lookupRoutes = require('./routes/lookup');
 const deliverRoutes = require('./routes/deliver');
+const adminRoutes = require('./routes/admin');
 
 // Apply routes with rate limiting
 app.use('/api', lookupLimiter, lookupRoutes);
 app.use('/api', deliveryLimiter, deliverRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Development file serving for local testing
 if (process.env.NODE_ENV === 'development') {

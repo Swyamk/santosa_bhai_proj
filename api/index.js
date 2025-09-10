@@ -4,6 +4,7 @@ const cors = require('cors');
 // Import your existing route handlers
 const lookupRoute = require('../backend/routes/lookup');
 const deliverRoute = require('../backend/routes/deliver');
+const adminRoute = require('../backend/routes/admin');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.get('/api/health', (req, res) => {
 // Routes
 app.use('/api', lookupRoute);
 app.use('/api', deliverRoute);
+app.use('/api/admin', adminRoute);
 
 // Export for Vercel
 module.exports = app;
