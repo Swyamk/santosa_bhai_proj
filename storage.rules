@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// Firebase Storage Rules for Study Platform
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Materials folder - read for authenticated users, write for admins
+    match /materials/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // Uploads folder - read/write for admins only
+    match /uploads/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Temp folder - read/write for authenticated users (for temporary uploads)
+    match /temp/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Public folder - read for everyone, write for admins
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+    
+    // Helper function to validate file types
+    function isValidFileType() {
+      return request.resource.contentType.matches('image/.*') ||
+             request.resource.contentType.matches('application/pdf') ||
+             request.resource.contentType.matches('application/vnd.ms-powerpoint') ||
+             request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.presentationml.presentation') ||
+             request.resource.contentType.matches('video/.*') ||
+             request.resource.contentType.matches('audio/.*');
+    }
+    
+    // Helper function to validate file size (50MB limit)
+    function isValidFileSize() {
+      return request.resource.size < 50 * 1024 * 1024;
+    }
+  }
+}

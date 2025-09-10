@@ -1,0 +1,99 @@
+rules_version = '2';
+
+// Firestore Security Rules for Study Platform
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Students collection - read only for authenticated users
+    match /students/{studentId} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // Materials collection - read for everyone, write for admins only
+    match /materials/{materialId} {
+      allow read: if true; // Public read access for material lookup
+      allow write: if isAdmin();
+    }
+    
+    // Courses collection - read for everyone, write for admins only
+    match /courses/{courseId} {
+      allow read: if true; // Public read access
+      allow write: if isAdmin();
+    }
+    
+    // Deliveries collection - read/write for admins, create for authenticated users
+    match /deliveries/{deliveryId} {
+      allow read: if isAdmin();
+      allow create: if request.auth != null;
+      allow update, delete: if isAdmin();
+    }
+    
+    // Admins collection - read/write for admins only
+    match /admins/{adminId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Analytics collection - read/write for admins only
+    match /analytics/{analyticsId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    
+    // Helper function to check if user owns the resource
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Helper function to validate material data
+    function isValidMaterial() {
+      return request.resource.data.keys().hasAll(['title', 'course', 'type', 'filePath', 'uploadedAt', 'visibility']) &&
+             request.resource.data.title is string &&
+             request.resource.data.course is string &&
+             request.resource.data.type is string &&
+             request.resource.data.filePath is string &&
+             request.resource.data.visibility in ['active', 'inactive', 'archived'];
+    }
+    
+    // Helper function to validate student data
+    function isValidStudent() {
+      return request.resource.data.keys().hasAll(['name', 'email', 'courses']) &&
+             request.resource.data.name is string &&
+             request.resource.data.email is string &&
+             request.resource.data.courses is list;
+    }
+  }
+}
+
+// Firebase Storage Rules
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Materials folder - read for authenticated users, write for admins
+    match /materials/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+    
+    // Uploads folder - read/write for admins only
+    match /uploads/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Temp folder - read/write for authenticated users (for temporary uploads)
+    match /temp/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+  }
+}

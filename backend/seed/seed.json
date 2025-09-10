@@ -1,0 +1,135 @@
+{
+  "students": [
+    {
+      "id": "S101",
+      "name": "Aisha Khan",
+      "email": "aisha@college.edu",
+      "phone": "+919999111222",
+      "courses": ["CS101", "MA102"]
+    },
+    {
+      "id": "S102",
+      "name": "Ravi Patel",
+      "email": "ravi@college.edu",
+      "phone": "+919999333444",
+      "courses": ["CS101"]
+    },
+    {
+      "id": "S103",
+      "name": "Priya Singh",
+      "email": "priya@college.edu",
+      "phone": "+919999555666",
+      "courses": ["MA102", "PH101"]
+    },
+    {
+      "id": "S104",
+      "name": "Arjun Sharma",
+      "email": "arjun@college.edu",
+      "phone": "+919999777888",
+      "courses": ["CS101", "PH101"]
+    }
+  ],
+  "courses": [
+    {
+      "code": "CS101",
+      "title": "Data Structures",
+      "instructor": "Dr. Smith"
+    },
+    {
+      "code": "MA102",
+      "title": "Discrete Mathematics",
+      "instructor": "Prof. Johnson"
+    },
+    {
+      "code": "PH101",
+      "title": "Physics Fundamentals",
+      "instructor": "Dr. Brown"
+    }
+  ],
+  "materials": [
+    {
+      "id": "M1",
+      "course": "CS101",
+      "title": "Lecture 01 - Arrays",
+      "type": "pdf",
+      "filePath": "materials/cs101/lecture1.pdf",
+      "uploadedAt": "2025-08-01",
+      "size": "2.5 MB",
+      "expiryDays": 30,
+      "visibility": "active"
+    },
+    {
+      "id": "M2",
+      "course": "CS101",
+      "title": "Lecture 02 - Linked Lists",
+      "type": "pdf",
+      "filePath": "materials/cs101/lecture2.pdf",
+      "uploadedAt": "2025-08-03",
+      "size": "3.1 MB",
+      "expiryDays": 30,
+      "visibility": "active"
+    },
+    {
+      "id": "M3",
+      "course": "CS101",
+      "title": "Lab Assignment 1",
+      "type": "pdf",
+      "filePath": "materials/cs101/assignment1.pdf",
+      "uploadedAt": "2025-08-05",
+      "size": "1.8 MB",
+      "expiryDays": 15,
+      "visibility": "active"
+    },
+    {
+      "id": "M4",
+      "course": "MA102",
+      "title": "Sets and Logic",
+      "type": "ppt",
+      "filePath": "materials/ma102/sets_logic.pptx",
+      "uploadedAt": "2025-08-02",
+      "size": "4.2 MB",
+      "expiryDays": 30,
+      "visibility": "active"
+    },
+    {
+      "id": "M5",
+      "course": "MA102",
+      "title": "Graph Theory Basics",
+      "type": "pdf",
+      "filePath": "materials/ma102/graph_theory.pdf",
+      "uploadedAt": "2025-08-06",
+      "size": "5.7 MB",
+      "expiryDays": 30,
+      "visibility": "active"
+    },
+    {
+      "id": "M6",
+      "course": "PH101",
+      "title": "Newton's Laws Video",
+      "type": "video",
+      "filePath": "materials/ph101/newtons_laws.mp4",
+      "uploadedAt": "2025-08-04",
+      "size": "45.2 MB",
+      "expiryDays": 20,
+      "visibility": "active"
+    },
+    {
+      "id": "M7",
+      "course": "PH101",
+      "title": "Lab Manual - Mechanics",
+      "type": "pdf",
+      "filePath": "materials/ph101/lab_manual.pdf",
+      "uploadedAt": "2025-08-07",
+      "size": "8.9 MB",
+      "expiryDays": 45,
+      "visibility": "active"
+    }
+  ],
+  "admins": [
+    {
+      "uid": "admin1",
+      "email": "admin@college.edu",
+      "name": "System Administrator"
+    }
+  ]
+}
