@@ -4,6 +4,7 @@ const twilio = require('twilio');
 const { getFirestore } = require('../lib/firebaseAdmin');
 const { generateMultipleSignedUrls } = require('../lib/signedUrl');
 const { sendEmailWithNodemailer, sendEmailDevelopment } = require('../lib/nodemailerService');
+const { sendEmailWithResend } = require('../lib/resendService');
 const { 
   sendWhatsAppWithGreenAPI, 
   sendWhatsAppWithWati, 
@@ -161,9 +162,15 @@ router.post('/deliver', async (req, res) => {
  */
 async function sendEmailDelivery(student, materials, emailAddress) {
   try {
-    // Priority order: Nodemailer -> SendGrid -> Development Mode
+    // Priority order: Resend -> Nodemailer -> SendGrid -> Development Mode
     
-    // Try Nodemailer first (Gmail/Outlook/SMTP)
+    // Try Resend first (modern, reliable, good free tier)
+    if (process.env.RESEND_API_KEY) {
+      console.log('📧 Using Resend service...');
+      return await sendEmailWithResend(student, materials, emailAddress);
+    }
+    
+    // Try Nodemailer second (Gmail/Outlook/SMTP)
     if (process.env.EMAIL_SERVICE && process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
       console.log('📧 Using Nodemailer service...');
       return await sendEmailWithNodemailer(student, materials, emailAddress);
